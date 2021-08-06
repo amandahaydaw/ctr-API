@@ -1,0 +1,11 @@
+services:
+   
+
+    web:
+      image: deakin1992/covidtrackingrecord
+      restart: always
+      ports:
+
+        - "8081:8081"
+    database:
+        image: mongo
