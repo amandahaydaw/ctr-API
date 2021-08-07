@@ -2,10 +2,16 @@ services:
    
 
     web:
-      image: deakin1992/covidtrackingrecord
+      image: deakin1992/covidtrackingrecord_api
       restart: always
       ports:
 
-        - "8081:8081"
+        - "4041:4041"
     database:
         image: mongo
+        
+    watchtower:
+            image: v2tec/watchtower
+            volumes:
+              - /var/run/docker.sock:/var/run/docker.sock
+            command: --interval 30
