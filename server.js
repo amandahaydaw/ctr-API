@@ -1,23 +1,67 @@
-let express = require("express");
+const express = require("express");
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
+const passport = require("passport");
 let app = express();
-
+// import the CORS system
+var cors = require('cors');
 //var app = require('express')();
 let http = require('http').createServer(app);
 let io = require('socket.io')(http);
 
 
+// enable CORS for all routes
+app.use(cors());
 
 
-
-var port = process.env.PORT || 8081;
+var port = process.env.PORT || 4041;
 
 app.use(express.static(__dirname + '/public'));
 
-app.get("/test", function(request, response) {
-    var user_name = request.query.user_name;
-    response.end("Hello " + user_name + "!");
-});
+const adminRoutes = require("./routes/adminRoutes");
+const practitionerRoutes = require("./routes/practitionerRoutes");
 
+
+const connectionString = "mongodb+srv://medicine:test123@sit737.jj6ox.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+// "mongodb+srv://CovidTrackingRecord:test123@sit737.jj6ox.mongodb.net/ctr?retryWrites=true&w=majority";
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
+mongoose.set('useUnifiedTopology', true);
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(express.json());
+
+
+//Set the passport to act as middleware (intercept between apis)
+app.use(passport.initialize());
+
+// set passport to use our passport config file
+require("./config/passport")(passport);
+
+//Load the routes for the different databases
+app.use("/api", adminRoutes);
+app.use("/api", practitionerRoutes);
+
+//Load the routes for the different databases
+// CONNECT TO MONGO DB SERVER
+// On fail, display error to console
+// on success, display success message to console
+mongoose.connect(connectionString).catch((e) => {
+    console.error(`Cannot connect to MongoDB.  Error Message: `, e.message);
+}, {
+    useCreateIndex: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
+const connection = mongoose.connection;
+
+connection.once("open", function() {
+    console.log("MongoDB database connection established successfully");
+});
+// END OF MONGO CONNECT
 
 //socket test
 io.on('connection', (socket) => {
@@ -31,10 +75,18 @@ io.on('connection', (socket) => {
 
 });
 
-
+/*
 http.listen(port, () => {
     console.log("Listening on port ", port);
 });
+*/
+// Start the backend listener
+// This needs to be the last thing that server.js does, otherwise it hangs here listening for events
+var server = app.listen(port, function() {
+    var host = server.address().address;
+    console.log("app is listening at", host, port);
+});
+
 
 //this is only needed for Cloud foundry 
 require("cf-deployment-tracker-client").track();
