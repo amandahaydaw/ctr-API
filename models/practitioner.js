@@ -11,29 +11,13 @@ const Schema = mongoose.Schema;
 const keys = require("../config/keys");
 
 // PractitionerSchema
-// Practitioners are a user class of Edge-perience
-// A practitioner can be either a MHP or GP or Other
-
 const PractitionerSchema = new Schema({
-
-    Designation: { type: String }, //either GP or MHP or other
+    givenname: { type: String },
+    familyname: { type: String },
     Username: { type: String, unique: true },
-    Password: { type: String },
-    NameFirst: { type: String },
-    NameLast: { type: String },
-    Prefix: { type: String },
-    Clinic: { type: String }, // change later to list of clinics the Prac belongs to
     Email: { type: String },
     Phone: { type: Number },
-    PhoneSecondary: { type: Number },
-    ProviderNumber: { type: String },
-
-    //Practitioner settings
-    Active: { type: Boolean },
-    DefaultAppointmentLength: { type: Number },
-    DefaultAppointmentType: { type: String }, //in person, telehealth
-    DefaultDeliveryType: { type: String }
-
+    password: { type: String },
 });
 
 
@@ -44,16 +28,15 @@ const PractitionerSchema = new Schema({
 // Also - auto decrypts the fields when called from the database
 // (all fields are encrypted, except for email and password (which is hashed))
 
-PractitionerSchema.plugin(mongooseFieldEncryption, {
+/*PractitionerSchema.plugin(mongooseFieldEncryption, {
     fields: [
         "Email",
         "Phone",
-        "PhoneSecondary",
-        "NameFirst",
-        "NameLast",
+        "familyname",
+        "NameLast", "Username",
     ],
     secret: keys.practitionerKey,
 });
-
+*/
 var Practitioner = mongoose.model("practitioner", PractitionerSchema);
 module.exports = Practitioner;

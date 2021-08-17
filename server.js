@@ -20,9 +20,12 @@ app.use(express.static(__dirname + '/public'));
 
 const adminRoutes = require("./routes/adminRoutes");
 const practitionerRoutes = require("./routes/practitionerRoutes");
+const userRoutes = require("./routes/userRoutes");
 
 
-const connectionString = "mongodb+srv://medicine:test123@sit737.jj6ox.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+//const connectionString = "mongodb+srv://medicine:test123@sit737.jj6ox.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+//const connectionString = "mongodb://mongo:27017/sit780";
+const connectionString = "mongodb://localhost:27017/sit780";
 // "mongodb+srv://CovidTrackingRecord:test123@sit737.jj6ox.mongodb.net/ctr?retryWrites=true&w=majority";
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
@@ -44,7 +47,7 @@ require("./config/passport")(passport);
 //Load the routes for the different databases
 app.use("/api", adminRoutes);
 app.use("/api", practitionerRoutes);
-
+app.use("/api", userRoutes);
 //Load the routes for the different databases
 // CONNECT TO MONGO DB SERVER
 // On fail, display error to console
@@ -75,11 +78,8 @@ io.on('connection', (socket) => {
 
 });
 
-/*
-http.listen(port, () => {
-    console.log("Listening on port ", port);
-});
-*/
+
+
 // Start the backend listener
 // This needs to be the last thing that server.js does, otherwise it hangs here listening for events
 var server = app.listen(port, function() {
