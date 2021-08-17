@@ -24,8 +24,8 @@ const userRoutes = require("./routes/userRoutes");
 
 
 //const connectionString = "mongodb+srv://medicine:test123@sit737.jj6ox.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-//const connectionString = "mongodb://mongo:27017/sit780";
-const connectionString = "mongodb://localhost:27017/sit780";
+const connectionString = "mongodb://mongo:27017/sit780";
+//const connectionString = "mongodb://localhost:27017/sit780";
 // "mongodb+srv://CovidTrackingRecord:test123@sit737.jj6ox.mongodb.net/ctr?retryWrites=true&w=majority";
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
