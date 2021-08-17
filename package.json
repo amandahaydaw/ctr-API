@@ -1,20 +1,37 @@
 {
-  "name": "bluemix-hello-node",
-  "version": "0.0.0",
-  "dependencies": {
-    "cf-deployment-tracker-client": "*",
-    "commander": "^2.6.0",
-    "express": "^4.14.1",
-    "http-post": "^0.1.1",
-    "http-proxy": "^1.8.1",
-    "socket.io": "^2.3.0"
-  },
-  "main": "server.js",
-  "scripts": {
-    "start": "node server.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/IBM-Bluemix/bluemix-hello-node.git"
-  }
+    "name": "SIT780",
+    "version": "0.0.0",
+    "dependencies": {
+        "@shelf/jest-mongodb": "^2.0.1",
+        "bcrypt": "^5.0.1",
+        "cf-deployment-tracker-client": "*",
+        "commander": "^2.6.0",
+        "cors": "^2.8.5",
+        "dotenv": "^10.0.0",
+        "express": "^4.14.1",
+        "http-post": "^0.1.1",
+        "http-proxy": "^1.8.1",
+        "jsonwebtoken": "^8.5.1",
+        "mongoose": "^5.13.5",
+        "mongoose-encryption": "^2.1.0",
+        "mongoose-field-encryption": "^4.0.2",
+        "passport": "^0.4.1",
+        "passport-jwt": "^4.0.0",
+        "simple-datatables": "^3.0.2",
+        "simple-datatables-classic": "^2.1.14",
+        "socket.io": "^2.3.0",
+        "supertest": "^6.1.5"
+    },
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js",
+        "test": "jest"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/amandahaydaw/ctr-API.git"
+    },
+    "devDependencies": {
+        "jest": "^27.0.6"
+    }
 }
