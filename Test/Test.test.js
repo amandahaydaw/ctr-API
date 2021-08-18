@@ -37,7 +37,7 @@ describe('User Model Test for ALL feature file', () => {
         }, (err) => {
             if (err) {
                 console.error(err);
-                process.exit(1);
+               // process.exit(1);
             }
         });
     });
