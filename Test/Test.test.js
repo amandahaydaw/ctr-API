@@ -24,7 +24,8 @@ const UserData = {
     Email: "",
     Phone: null
 }
-MONGO_URL = "mongodb://localhost:27017/sit780"
+//MONGO_URL = "mongodb://localhost:27017/sit780"
+MONGO_URL = "mongodb://mongo:27017/sit780"
 describe('User Model Test for ALL feature file', () => {
     console.log('Connection url => ', MONGO_URL);
     // By using mongoose.connect
