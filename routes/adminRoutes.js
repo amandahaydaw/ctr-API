@@ -60,34 +60,22 @@ router.post("/temp/createAdmin", (req, res, next) => {
     });
 });
 
-router.post(
-    "/admin/createPractitioner",
-    passport.authenticate("admin", { session: false }),
+
+router.post("/admin/createPractitioner",
+    //passport.authenticate("admin", { session: true }),
     (req, res, next) => {
         // hash the password field, then assign all json attributes to temporary variables within a client object
 
-        bcrypt.hash(req.body.Password, 12).then((hash) => {
+        bcrypt.hash(req.body.password, 12).then((hash) => {
             const practitioner = new Practitioner({
-                Designation: req.body.Designation, //either GP or MHP or other
                 Username: req.body.Username,
-                Password: hash,
-                NameFirst: req.body.NameFirst,
-                NameLast: req.body.NameLast,
-                Prefix: req.body.Prefix,
-                Clinic: req.body.Clinic, //change later to list of clinics the Prac belongs to
+                password: hash,
+                givenname: req.body.givenname,
+                familyname: req.body.familyname,
                 Email: req.body.Email,
                 Phone: req.body.Phone,
-                PhoneSecondary: req.body.PhoneSecondary,
-                ProviderNumber: req.body.ProviderNumber,
-
-                Active: true,
-                DefaultAppointmentLength: 20,
-                DefaultAppointmentType: "",
-                DefaultDeliveryType: ""
 
             });
-
-
 
             //Check, does this Mhp already exist?  If so, return 401
             Practitioner.findOne({ Username: req.body.Username })
@@ -210,6 +198,7 @@ router.get(
         }).catch((err) => console.log(err));
     }
 );
+
 
 
 module.exports = router;
