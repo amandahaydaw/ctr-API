@@ -1,8 +1,5 @@
-//import mongoose for saving to mongodb
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-
-//Load encryption key from keys file
 const keys = require("../config/keys");
 
 // userSchema

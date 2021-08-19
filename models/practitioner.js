@@ -1,16 +1,9 @@
-//practitioner was created to be a join of GP and MHP models
-
-//import mongoose for saving to mongodb
 const mongoose = require("mongoose");
-const mongooseFieldEncryption = require("mongoose-field-encryption")
-    .fieldEncryption;
-
+const mongooseFieldEncryption = require("mongoose-field-encryption").fieldEncryption;
 const Schema = mongoose.Schema;
-
-//Load encryption key from keys file
+//Loading encryption key
 const keys = require("../config/keys");
 
-// PractitionerSchema
 const PractitionerSchema = new Schema({
     givenname: { type: String },
     familyname: { type: String },
@@ -20,13 +13,7 @@ const PractitionerSchema = new Schema({
     password: { type: String },
 });
 
-
-
-// Encryption plugin
-// mongooseFieldEncryption
-// Encrypts each of the listed fields using the secret key
-// Also - auto decrypts the fields when called from the database
-// (all fields are encrypted, except for email and password (which is hashed))
+// below are encruption fields required more fixes
 
 /*PractitionerSchema.plugin(mongooseFieldEncryption, {
     fields: [
