@@ -17,14 +17,14 @@ const PractitionerUserData = {
 const AdminUserData = { Username: 'test' + Math.random() + '@gmail.com', Password: 'shdgj' + Math.random() + '@gmail.com' };
 
 const UserData = {
-    Username: "user" + Math.random(),
-    password: "user123" + Math.random(),
-    givenname: "",
-    familyname: "",
-    Email: "",
-    Phone: null
-}
-//MONGO_URL = "mongodb://localhost:27017/sit780"
+        Username: "user" + Math.random(),
+        password: "user123" + Math.random(),
+        givenname: "",
+        familyname: "",
+        Email: "",
+        Phone: null
+    }
+    //MONGO_URL = "mongodb://localhost:27017/sit780"
 MONGO_URL = "mongodb+srv://medicine:test123@sit737.jj6ox.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 describe('User Model Test for ALL feature file', () => {
     console.log('Connection url => ', MONGO_URL);
@@ -37,7 +37,7 @@ describe('User Model Test for ALL feature file', () => {
         }, (err) => {
             if (err) {
                 console.error(err);
-               // process.exit(1);
+                process.exit(1);
             }
         });
     });

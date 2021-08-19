@@ -1,27 +1,13 @@
-/* practitionerRoutes.js
-
-This page sets up all the API routes for accessing the mhp database
-
- * 2/4/2021 10:30pm- Bevan Fairleigh - Created.  
- *
- */
-
-
-
 const express = require("express");
-
-
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
-
 const router = express.Router();
-
 const keys = require("../config/keys");
 const Practitioner = require("../models/practitioner");
 
 
-
+//login
 router.get(
     "/getPractitioner",
     passport.authenticate("practitioner", { session: false }),
@@ -29,52 +15,33 @@ router.get(
         res.status(200).json({ success: true, data: req.user });
     }
 );
-
-// login (user authenticate)
-// POST
-// api path '/api/login'
-// requires username/password json object
-// This API is used by all admin user types, MHP, GP and Admin
-// determined by Usertype field in req.body
+//create
 router.post("/PractitionerLogin", (req, res, next) => {
     let fetchedPrac;
-
-    //Check to see if practitioner exists in database
     Practitioner.findOne({ Username: req.body.username })
         .then((practitioner) => {
             if (!practitioner) {
-                //if not found, return 401
                 return res.status(401).json({
-                    message: "Practitioner username not found",
+                    message: "Practitioner username not found! Please login in with correct username",
                 });
             }
-            // if found, fetch the practitioner entry
             fetchedPrac = practitioner;
-            // compare hashed passwords
             return bcrypt.compare(req.body.password, practitioner.Password);
         })
         .then((result) => {
-            console.log("Successfully found Practitioner:", fetchedPrac.Username);
-            //on password check fail return 401
+            console.log("Successfully found Practitioner account:", fetchedPrac.Username);
             if (!result) {
                 return res.status(401).json({
                     message: "Authentication failed.  Incorrect password",
                 });
             }
 
-            //otherwise, create a jsonwebtoken
-            // Deconstructed token components will be
-            // Email
-            // userId
-
-            const token = jwt.sign(
-                // The secret key is random, and signs the token key
-                {
+            const token = jwt.sign({
                     username: fetchedPrac.Username,
                     userId: fetchedPrac._id,
                     practitioner: true,
                 },
-                keys.secretOrKey, { expiresIn: "1h" },
+                keys.secretOrKey, { expiresIn: "3h" },
                 (err, token) => {
                     res.json({
                         success: true,
@@ -82,7 +49,7 @@ router.post("/PractitionerLogin", (req, res, next) => {
                     });
                 }
             );
-            console.log("Practitioner authenticated with token ");
+            console.log("Practitioner authenticated with token!please loggout and loggin again ");
         })
         .catch((e) => {
             console.log(e);

@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+/*const mongoose = require('mongoose');
 const DB_URI = 'mongodb+srv://edge:edge@cluster0.5ym33.mongodb.net/edge?retryWrites=true&w=majority';
 
 
@@ -31,4 +31,4 @@ function close() {
     return mongoose.disconnect();
 }
 
-module.exports = { connect, close };
+module.exports = { connect, close };*/

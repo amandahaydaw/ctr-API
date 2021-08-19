@@ -5,7 +5,6 @@ const passport = require("passport");
 let app = express();
 // import the CORS system
 var cors = require('cors');
-//var app = require('express')();
 let http = require('http').createServer(app);
 let io = require('socket.io')(http);
 
@@ -37,8 +36,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.json());
 
-
-//Set the passport to act as middleware (intercept between apis)
 app.use(passport.initialize());
 
 // set passport to use our passport config file
@@ -48,10 +45,7 @@ require("./config/passport")(passport);
 app.use("/api", adminRoutes);
 app.use("/api", practitionerRoutes);
 app.use("/api", userRoutes);
-//Load the routes for the different databases
-// CONNECT TO MONGO DB SERVER
-// On fail, display error to console
-// on success, display success message to console
+
 mongoose.connect(connectionString).catch((e) => {
     console.error(`Cannot connect to MongoDB.  Error Message: `, e.message);
 }, {
@@ -84,7 +78,7 @@ io.on('connection', (socket) => {
 // This needs to be the last thing that server.js does, otherwise it hangs here listening for events
 var server = app.listen(port, function() {
     var host = server.address().address;
-    console.log("app is listening at", host, port);
+    console.log("Website is listening at", host, port);
 });
 
 
